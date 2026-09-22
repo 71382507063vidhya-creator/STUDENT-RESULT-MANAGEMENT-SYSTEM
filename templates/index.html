@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Result Management System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-custom" href="/">🎓 Student Result Management System</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <ul class="navbar-nav gap-2">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+          <li class="nav-item"><a class="btn btn-primary-custom btn-sm px-3" href="/login">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1>Student Result Management System</h1>
+      <p class="lead mt-3">Manage student marks, results and academic performance efficiently.</p>
+      <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+        <a href="/login" class="btn btn-light hero-btn"><i class="bi bi-mortarboard"></i> Student Login</a>
+        <a href="/login" class="btn btn-outline-light hero-btn"><i class="bi bi-shield-lock"></i> Admin Login</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container py-5" id="features">
+    <h2 class="text-center fw-bold mb-5">Features</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">👨‍🎓</div>
+          <h5 class="fw-bold">Student Management</h5>
+          <p class="text-muted mb-0">Add, edit, search and filter student records with ease.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">📚</div>
+          <h5 class="fw-bold">Subject Management</h5>
+          <p class="text-muted mb-0">Organize subjects by department and semester.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h5 class="fw-bold">Marks Management</h5>
+          <p class="text-muted mb-0">Enter and validate marks with built-in safeguards.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h5 class="fw-bold">Result Analysis</h5>
+          <p class="text-muted mb-0">Automatic total, average, grade and pass/fail calculation.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">🔐</div>
+          <h5 class="fw-bold">Secure Login</h5>
+          <p class="text-muted mb-0">Hashed passwords and role-based session authentication.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h5 class="fw-bold">Continuous Integration</h5>
+          <p class="text-muted mb-0">Automated tests run on every push via GitHub Actions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container pb-5">
+    <div class="chocolate-highlight">
+      <h3>🍫 PASS CHOCOLATE SHOWER</h3>
+      <p class="mb-0 fs-5">Students who pass receive a special chocolate celebration!</p>
+    </div>
+  </section>
+
+  <footer class="text-center py-4 text-muted small">
+    &copy; 2026 Student Result Management System. Built with Flask &amp; Bootstrap.
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

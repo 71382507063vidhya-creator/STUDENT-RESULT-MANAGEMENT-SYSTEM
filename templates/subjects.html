@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subjects | Student Result Management System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="app-wrapper">
+    <aside class="sidebar">
+      <div class="brand">🎓 SRMS Admin</div>
+      <nav class="nav flex-column py-2">
+        <a class="nav-link" href="/admin/dashboard"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
+        <a class="nav-link" href="/admin/students"><i class="bi bi-people me-2"></i>Students</a>
+        <a class="nav-link active" href="/admin/subjects"><i class="bi bi-journal-bookmark me-2"></i>Subjects</a>
+        <a class="nav-link" href="/admin/marks"><i class="bi bi-pencil-square me-2"></i>Marks</a>
+        <a class="nav-link" href="/admin/results"><i class="bi bi-bar-chart me-2"></i>Results</a>
+        <a class="nav-link logout-btn" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
+      </nav>
+    </aside>
+
+    <div class="main-content">
+      <div class="topbar">
+        <div>
+          <button class="btn btn-sm btn-light sidebar-toggle-btn"><i class="bi bi-list"></i></button>
+          <span class="fw-semibold">Subject Management</span>
+        </div>
+        <button class="btn btn-primary-custom" onclick="openAddSubjectModal()"><i class="bi bi-plus-lg"></i> Add Subject</button>
+      </div>
+
+      <div class="content-body">
+        <div id="subjects-alert"></div>
+
+        <div class="card-panel mb-3">
+          <div class="row g-2">
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="subject-search" placeholder="🔍 Search by name or code">
+            </div>
+            <div class="col-md-4">
+              <input type="text" class="form-control" id="subject-filter-department" placeholder="Filter by department">
+            </div>
+            <div class="col-md-4">
+              <input type="number" class="form-control" id="subject-filter-semester" placeholder="Filter by semester">
+            </div>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr><th>ID</th><th>Code</th><th>Subject Name</th><th>Department</th><th>Semester</th><th>Actions</th></tr>
+              </thead>
+              <tbody id="subjects-body">
+                <tr><td colspan="6" class="text-center text-muted">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="subjectModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="subject-form">
+          <div class="modal-header">
+            <h5 class="modal-title" id="subject-modal-title">Add Subject</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div id="subject-modal-alert"></div>
+            <input type="hidden" id="subject-form-id">
+            <div class="mb-3">
+              <label class="form-label">Subject Code</label>
+              <input type="text" class="form-control" id="subject-code" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Subject Name</label>
+              <input type="text" class="form-control" id="subject-name" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Department</label>
+              <input type="text" class="form-control" id="subject-department" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Semester</label>
+              <input type="number" class="form-control" id="subject-semester" min="1" max="12" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary-custom">Save Subject</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteSubjectModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete <strong id="delete-subject-target-name"></strong>?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirm-delete-subject-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

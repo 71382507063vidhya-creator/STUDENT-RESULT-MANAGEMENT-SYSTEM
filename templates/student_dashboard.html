@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard | Student Result Management System</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand navbar-brand-custom" href="/student/dashboard">🎓 Student Result Management System</a>
+      <a class="btn btn-outline-danger btn-sm logout-btn" href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <h2 class="fw-bold mb-4">Welcome, {{ name }} 👋</h2>
+    <div id="student-summary-alert"></div>
+
+    <div class="row g-3 mb-4" id="student-summary">
+      <div class="col-md-3 col-6">
+        <div class="stat-card">
+          <div class="stat-icon bg-primary-soft"><i class="bi bi-journal-bookmark"></i></div>
+          <div><p class="stat-value" id="sd-total-subjects">-</p><p class="stat-label">Total Subjects</p></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-card">
+          <div class="stat-icon bg-secondary-soft"><i class="bi bi-123"></i></div>
+          <div><p class="stat-value" id="sd-total-marks">-</p><p class="stat-label">Total Marks</p></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-card">
+          <div class="stat-icon bg-warning-soft"><i class="bi bi-graph-up"></i></div>
+          <div><p class="stat-value" id="sd-average">-</p><p class="stat-label">Average</p></div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-card">
+          <div class="stat-icon bg-success-soft"><i class="bi bi-award"></i></div>
+          <div><p class="stat-value" id="sd-grade">-</p><p class="stat-label">Grade</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-panel text-center">
+      <p class="text-muted mb-1">Result Status</p>
+      <h3 id="sd-status" class="fw-bold mb-3">-</h3>
+      <div class="d-flex justify-content-center gap-2 flex-wrap">
+        <a href="/student/result" class="btn btn-primary-custom"><i class="bi bi-file-earmark-text"></i> View Result</a>
+        <a href="/student/result" class="btn btn-outline-secondary"><i class="bi bi-printer"></i> Print Result</a>
+        <a href="/student/result" class="btn btn-outline-secondary"><i class="bi bi-download"></i> Download Result</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    async function loadStudentSummary() {
+      const { ok, data } = await apiRequest("/api/session");
+      if (!ok || !data.student_id) return;
+
+      const res = await apiRequest(`/api/results/${data.student_id}`);
+      if (!res.ok) {
+        showAlert("student-summary-alert", res.data.error || "Failed to load your result");
+        return;
+      }
+      const r = res.data;
+      if (r.status === "NO_RESULT") {
+        document.getElementById("sd-status").textContent = "No result available yet";
+        return;
+      }
+      document.getElementById("sd-total-subjects").textContent = r.subjects.length;
+      document.getElementById("sd-total-marks").textContent = r.total;
+      document.getElementById("sd-average").textContent = r.average;
+      document.getElementById("sd-grade").textContent = r.grade;
+      const statusEl = document.getElementById("sd-status");
+      statusEl.textContent = r.status === "PASS" ? "✅ PASS" : "❌ FAIL";
+      statusEl.className = "fw-bold mb-3 " + (r.status === "PASS" ? "text-success" : "text-danger");
+    }
+    document.addEventListener("DOMContentLoaded", loadStudentSummary);
+  </script>
+</body>
+</html>

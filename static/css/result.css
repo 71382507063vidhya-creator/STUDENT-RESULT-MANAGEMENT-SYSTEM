@@ -1,0 +1,51 @@
+/* ============================================================
+   Result page & Chocolate Shower specific styles
+   ============================================================ */
+
+.chocolate-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.choco-piece {
+  position: absolute;
+  top: -60px;
+  font-size: 2rem;
+  animation-name: choco-fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  will-change: transform;
+}
+
+@keyframes choco-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.9;
+  }
+}
+
+.celebrate-again-btn {
+  background: linear-gradient(135deg, #5c3a21, #8b5a2b);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 22px;
+  font-weight: 700;
+}
+
+.celebrate-again-btn:hover { color: #fff; opacity: 0.9; }
+
+@media print {
+  .chocolate-container,
+  .celebrate-again-btn { display: none !important; }
+}
