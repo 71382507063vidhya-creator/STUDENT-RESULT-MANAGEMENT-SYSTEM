@@ -256,3 +256,5 @@ it, so the celebration can never be triggered by manipulating the browser.
 - API responses never include the `password` field for students or admins.
 - All database access uses parameterized queries (no string-built SQL),
   which prevents SQL injection.
+#   S T U D E N T - R E S U L T - M A N A G E M E N T - S Y S T E M  
+ 
