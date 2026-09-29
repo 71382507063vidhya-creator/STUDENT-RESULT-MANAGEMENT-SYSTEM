@@ -2,7 +2,7 @@
 Student Result Management System
 Main Flask application entry point.
 """
-import os
+
 from flask import Flask, render_template, session, redirect, url_for
 
 from config import Config
@@ -43,7 +43,10 @@ def create_app():
     def admin_dashboard():
         if session.get("role") != "admin":
             return redirect(url_for("login_page"))
-        return render_template("admin_dashboard.html", username=session.get("username"))
+        return render_template(
+            "admin_dashboard.html",
+            username=session.get("username")
+        )
 
     @app.route("/admin/students")
     def students_page():
@@ -73,20 +76,29 @@ def create_app():
     def admin_view_result(student_id):
         if session.get("role") != "admin":
             return redirect(url_for("login_page"))
-        return render_template("result.html", student_id=student_id, viewer="admin")
+        return render_template(
+            "result.html",
+            student_id=student_id,
+            viewer="admin"
+        )
 
     @app.route("/student/dashboard")
     def student_dashboard():
         if session.get("role") != "student":
             return redirect(url_for("login_page"))
-        return render_template("student_dashboard.html", name=session.get("name"))
+        return render_template(
+            "student_dashboard.html",
+            name=session.get("name")
+        )
 
     @app.route("/student/result")
     def student_result():
         if session.get("role") != "student":
             return redirect(url_for("login_page"))
         return render_template(
-            "result.html", student_id=session.get("student_id"), viewer="student"
+            "result.html",
+            student_id=session.get("student_id"),
+            viewer="student"
         )
 
     # ---------------- Error handlers ----------------
@@ -102,8 +114,13 @@ def create_app():
     return app
 
 
+# Create Flask application
 app = create_app()
 
+# Initialize database when the application starts
+init_db()
+
+
+# Local development
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
