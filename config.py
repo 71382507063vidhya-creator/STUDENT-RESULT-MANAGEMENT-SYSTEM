@@ -10,7 +10,7 @@ class Config:
     """Base configuration for the Student Result Management System."""
 
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-in-production")
-    DATABASE_PATH = os.path.join(BASE_DIR, "database", "database.db")
+    DATABASE_PATH = "/tmp/student_result.db"
     PASSING_MARK = 35          # Minimum marks required in a subject to pass it
     MAX_MARK = 100
     MIN_MARK = 0
